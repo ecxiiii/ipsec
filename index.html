@@ -1,0 +1,1017 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IPsec Architecture - Technical Presentation</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Navigation Dots -->
+    <nav class="slide-nav" id="slideNav"></nav>
+
+    <!-- Slide Counter -->
+    <div class="slide-counter" id="slideCounter"></div>
+
+    <!-- Notes Button -->
+    <button class="notes-button" id="notesButton" aria-label="Show presentation notes">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+            <polyline points="14 2 14 8 20 8"></polyline>
+            <line x1="16" y1="13" x2="8" y2="13"></line>
+            <line x1="16" y1="17" x2="8" y2="17"></line>
+            <polyline points="10 9 9 9 8 9"></polyline>
+        </svg>
+        <span>Notes</span>
+    </button>
+
+    <!-- Notes Panel -->
+    <div class="notes-panel" id="notesPanel">
+        <div class="notes-header">
+            <h3>Presentation Notes</h3>
+            <button class="notes-close" id="notesClose" aria-label="Close notes">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+        </div>
+        <div class="notes-content" id="notesContent">
+            <!-- Notes content will be dynamically loaded here -->
+        </div>
+    </div>
+
+    <!-- Navigation Arrows -->
+    <button class="nav-arrow nav-arrow-left" id="prevSlide" aria-label="Previous slide">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="15 18 9 12 15 6"></polyline>
+        </svg>
+    </button>
+    <button class="nav-arrow nav-arrow-right" id="nextSlide" aria-label="Next slide">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="9 18 15 12 9 6"></polyline>
+        </svg>
+    </button>
+
+    <!-- Slides Container -->
+    <div class="slides-container" id="slidesContainer">
+
+        <!-- Slide 1: Title -->
+        <section class="slide" data-slide="1">
+            <div class="slide-content">
+                <h1 class="title-main">IP Security (IPsec) Architecture</h1>
+                <p class="subtitle">A Comprehensive Technical Documentation</p>
+                <div class="title-meta">
+                    <p><strong>Author:</strong> Technical Documentation Team</p>
+                    <p><strong>Date:</strong> February 2, 2026</p>
+                    <p><strong>Document Type:</strong> Technical Report</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 2: Executive Summary -->
+        <section class="slide" data-slide="2">
+            <div class="slide-content">
+                <h2>Executive Summary</h2>
+                <div class="content-block">
+                    <h3>What is IPsec?</h3>
+                    <ul class="feature-list">
+                        <li>Network-layer security protocol suite</li>
+                        <li>Open standards framework</li>
+                        <li>Authenticates and encrypts IP packets</li>
+                        <li>Secure communication for hosts, gateways, and networks</li>
+                    </ul>
+
+                    <h3>Coverage</h3>
+                    <ul class="feature-list">
+                        <li>Core protocols: AH, ESP</li>
+                        <li>Modes: Transport & Tunnel</li>
+                        <li>Security Association framework</li>
+                        <li>Key management: IKE</li>
+                        <li>Cryptographic algorithms</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 3: Introduction & Overview -->
+        <section class="slide" data-slide="3">
+            <div class="slide-content">
+                <h2>IPsec Overview</h2>
+                <div class="content-block">
+                    <p class="protocol-number">Network Layer (Layer 3) Security</p>
+                    <div class="feature-grid">
+                        <div class="feature-item">
+                            <h3>🔒 Confidentiality</h3>
+                            <p>Data unreadable by unauthorized parties</p>
+                        </div>
+                        <div class="feature-item">
+                            <h3>✓ Data Integrity</h3>
+                            <p>Tamper detection guaranteed</p>
+                        </div>
+                        <div class="feature-item">
+                            <h3>🔑 Authentication</h3>
+                            <p>Identity verification of peers</p>
+                        </div>
+                        <div class="feature-item">
+                            <h3>🛡️ Anti-replay</h3>
+                            <p>Prevents packet retransmission attacks</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 4: IPsec Architecture Overview -->
+        <section class="slide" data-slide="4">
+            <div class="slide-content">
+                <h2>Architecture Components</h2>
+                <div class="content-block">
+                    <ol class="numbered-list">
+                        <li><strong>Security Protocols:</strong> AH & ESP</li>
+                        <li><strong>Security Associations:</strong> Unidirectional security parameters</li>
+                        <li><strong>Key Management:</strong> Automated via IKE</li>
+                        <li><strong>Crypto Algorithms:</strong> Modular encryption & authentication</li>
+                        <li><strong>Policy Enforcement:</strong> SPD, SAD, PAD databases</li>
+                    </ol>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 5: Protocol Components -->
+        <section class="slide" data-slide="5">
+            <div class="slide-content">
+                <h2>Protocol Suite Components</h2>
+                <div class="content-block">
+                    <div class="component-grid">
+                        <div class="component-card">
+                            <h3>AH</h3>
+                            <p>• Data integrity<br>• Origin authentication<br>• Anti-replay</p>
+                        </div>
+                        <div class="component-card">
+                            <h3>ESP</h3>
+                            <p>• Confidentiality<br>• Integrity<br>• Authentication<br>• Traffic-flow hiding</p>
+                        </div>
+                        <div class="component-card">
+                            <h3>IKE</h3>
+                            <p>• Automated SA creation<br>• Key exchange<br>• Peer authentication</p>
+                        </div>
+                        <div class="component-card">
+                            <h3>SPD</h3>
+                            <p>• Traffic policies<br>• Protect/Bypass/Discard<br>• Packet selectors</p>
+                        </div>
+                        <div class="component-card">
+                            <h3>SAD</h3>
+                            <p>• Active SA parameters<br>• Crypto keys<br>• Algorithms</p>
+                        </div>
+                        <div class="component-card">
+                            <h3>SA</h3>
+                            <p>• Security parameters<br>• Unidirectional<br>• Peer attributes</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 6: Authentication Header (AH) -->
+        <section class="slide" data-slide="6">
+            <div class="slide-content">
+                <h2>Authentication Header (AH)</h2>
+                <div class="content-block">
+                    <p class="protocol-number">IP Protocol: <strong>51</strong></p>
+
+                    <h3>Provides</h3>
+                    <ul class="feature-list">
+                        <li>Data integrity via MAC</li>
+                        <li>Origin authentication</li>
+                        <li>Anti-replay protection</li>
+                        <li>Authenticates immutable IP header fields</li>
+                    </ul>
+
+                    <h3>Header Fields</h3>
+                    <ul class="feature-list">
+                        <li><strong>Next Header:</strong> Following protocol ID</li>
+                        <li><strong>SPI:</strong> SA identifier</li>
+                        <li><strong>Sequence Number:</strong> Anti-replay counter</li>
+                        <li><strong>Auth Data:</strong> ICV hash</li>
+                    </ul>
+
+                    <div class="warning-box">
+                        <h4>⚠️ Limitations</h4>
+                        <p>• NAT incompatible (authenticates IP header)<br>• No confidentiality (cleartext)<br>• Less commonly deployed than ESP</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 7: Encapsulating Security Payload (ESP) -->
+        <section class="slide" data-slide="7">
+            <div class="slide-content">
+                <h2>ESP (Encapsulating Security Payload)</h2>
+                <div class="content-block">
+                    <p class="protocol-number">IP Protocol: <strong>50</strong></p>
+
+                    <h3>Provides</h3>
+                    <ul class="feature-list">
+                        <li>Confidentiality (encryption)</li>
+                        <li>Optional authentication & integrity</li>
+                        <li>Anti-replay protection</li>
+                        <li>NAT compatible (doesn't protect outer IP header)</li>
+                    </ul>
+
+                    <h3>Operational Modes</h3>
+                    <div class="mode-grid">
+                        <div class="mode-card">
+                            <h4>Encryption Only</h4>
+                            <p>Confidentiality</p>
+                        </div>
+                        <div class="mode-card">
+                            <h4>Auth Only</h4>
+                            <p>Null encryption</p>
+                        </div>
+                        <div class="mode-card highlight">
+                            <h4>Both ✓</h4>
+                            <p>Most common</p>
+                        </div>
+                    </div>
+
+                    <div class="info-box">
+                        <h4>✓ Advantages</h4>
+                        <p>• NAT compatible<br>• Flexible (encrypt + auth)<br>• Preferred for modern deployments</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 8: Internet Key Exchange (IKE) -->
+        <section class="slide" data-slide="8">
+            <div class="slide-content">
+                <h2>Internet Key Exchange (IKE)</h2>
+                <div class="content-block">
+                    <p class="protocol-number">Automates SA Creation & Key Exchange</p>
+
+                    <h3>Primary Functions</h3>
+                    <ol class="numbered-list">
+                        <li><strong>Mutual Authentication:</strong> PSK, certificates, or public keys</li>
+                        <li><strong>Key Generation:</strong> Shared symmetric keys</li>
+                        <li><strong>SA Negotiation:</strong> Agree on algorithms & parameters</li>
+                        <li><strong>Key Refresh:</strong> Periodic renewal</li>
+                    </ol>
+
+                    <h3>Two-Phase Structure</h3>
+                    <div class="phase-grid">
+                        <div class="phase-card">
+                            <h4>Phase 1</h4>
+                            <p>• Secure channel setup<br>• IKE SA / ISAKMP tunnel<br>• Expensive (DH exchange)</p>
+                        </div>
+                        <div class="phase-card">
+                            <h4>Phase 2</h4>
+                            <p>• IPsec SA negotiation<br>• Uses Phase 1 channel<br>• Can be repeated</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 9: Transport Mode -->
+        <section class="slide" data-slide="9">
+            <div class="slide-content">
+                <h2>Transport Mode</h2>
+                <div class="content-block">
+                    <p class="protocol-number">Protects Payload Only</p>
+
+                    <h3>Characteristics</h3>
+                    <ul class="feature-list">
+                        <li>Original IP header exposed</li>
+                        <li>Encrypts/authenticates payload only</li>
+                        <li>IPsec header between IP header & payload</li>
+                        <li>Lower overhead</li>
+                        <li>Preserves original MTU</li>
+                    </ul>
+
+                    <div class="packet-structure">
+                        <h4>ESP Transport Structure</h4>
+                        <div class="packet-boxes">
+                            <span class="packet-box">IP Hdr</span>
+                            <span class="packet-box">ESP Hdr</span>
+                            <span class="packet-box encrypted">🔒 Payload</span>
+                            <span class="packet-box">Trailer</span>
+                            <span class="packet-box">Auth</span>
+                        </div>
+                    </div>
+
+                    <h3>Use Cases</h3>
+                    <ul class="feature-list">
+                        <li>Host-to-host direct</li>
+                        <li>Client-to-server VPN</li>
+                        <li>Both endpoints support IPsec</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 10: Tunnel Mode -->
+        <section class="slide" data-slide="10">
+            <div class="slide-content">
+                <h2>Tunnel Mode</h2>
+                <div class="content-block">
+                    <p class="protocol-number">Encapsulates Entire Packet</p>
+
+                    <h3>Characteristics</h3>
+                    <ul class="feature-list">
+                        <li>Entire packet becomes payload</li>
+                        <li>New outer IP header (tunnel endpoints)</li>
+                        <li>Original IP header encrypted</li>
+                        <li>Higher overhead (dual headers)</li>
+                        <li>Reduced MTU</li>
+                        <li>Hides internal routing info</li>
+                    </ul>
+
+                    <div class="packet-structure">
+                        <h4>ESP Tunnel Structure</h4>
+                        <div class="packet-boxes">
+                            <span class="packet-box">New IP</span>
+                            <span class="packet-box">ESP</span>
+                            <span class="packet-box encrypted">🔒 Orig IP + Data</span>
+                            <span class="packet-box">Trailer</span>
+                            <span class="packet-box">Auth</span>
+                        </div>
+                    </div>
+
+                    <h3>Use Cases</h3>
+                    <ul class="feature-list">
+                        <li>Site-to-site VPN</li>
+                        <li>Security gateways</li>
+                        <li>Remote access VPN</li>
+                        <li>Traffic analysis protection</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 11: Mode Comparison -->
+        <section class="slide" data-slide="11">
+            <div class="slide-content">
+                <h2>Transport vs Tunnel Mode</h2>
+                <div class="content-block">
+                    <table class="comparison-table">
+                        <thead>
+                            <tr>
+                                <th>Aspect</th>
+                                <th>Transport Mode</th>
+                                <th>Tunnel Mode</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Header Protection</td>
+                                <td>Original header exposed</td>
+                                <td>Original header encrypted (ESP)</td>
+                            </tr>
+                            <tr>
+                                <td>Overhead</td>
+                                <td>Lower (single IP header)</td>
+                                <td>Higher (dual IP headers)</td>
+                            </tr>
+                            <tr>
+                                <td>MTU</td>
+                                <td>Original MTU maintained</td>
+                                <td>Reduced MTU</td>
+                            </tr>
+                            <tr>
+                                <td>Endpoints</td>
+                                <td>Must both support IPsec</td>
+                                <td>Can use security gateways</td>
+                            </tr>
+                            <tr>
+                                <td>Use Case</td>
+                                <td>Host-to-host direct</td>
+                                <td>Site-to-site, remote access VPNs</td>
+                            </tr>
+                            <tr>
+                                <td>Traffic Analysis</td>
+                                <td>Source/dest visible</td>
+                                <td>Tunnel endpoints only visible</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 12: Security Association Framework -->
+        <section class="slide" data-slide="12">
+            <div class="slide-content">
+                <h2>Security Association (SA)</h2>
+                <div class="content-block">
+                    <p class="protocol-number">Shared Security Attributes Between Peers</p>
+
+                    <div class="highlight-box">
+                        <h3>⚠️ Unidirectional</h3>
+                        <p>Bidirectional = 2 SAs (one per direction)</p>
+                    </div>
+
+                    <h3>SA Parameters</h3>
+                    <div class="parameter-grid">
+                        <div class="param-item">Protocol (AH/ESP)</div>
+                        <div class="param-item">SPI</div>
+                        <div class="param-item">Sequence counter</div>
+                        <div class="param-item">Encryption algo + key</div>
+                        <div class="param-item">Auth algo + key</div>
+                        <div class="param-item">Lifetime</div>
+                        <div class="param-item">Mode (transport/tunnel)</div>
+                        <div class="param-item">Path MTU</div>
+                        <div class="param-item">IP addresses</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 13: IPsec Databases -->
+        <section class="slide" data-slide="13">
+            <div class="slide-content">
+                <h2>IPsec Databases</h2>
+                <div class="content-block">
+                    <div class="database-grid">
+                        <div class="database-card">
+                            <h3>SPD</h3>
+                            <p><strong>Security Policy Database</strong></p>
+                            <p>• Traffic classification rules<br>• Packet selectors<br>• Actions per policy:</p>
+                            <div class="actions">
+                                <span class="action-badge protect">PROTECT</span>
+                                <span class="action-badge bypass">BYPASS</span>
+                                <span class="action-badge discard">DISCARD</span>
+                            </div>
+                        </div>
+
+                        <div class="database-card">
+                            <h3>SAD</h3>
+                            <p><strong>Security Association Database</strong></p>
+                            <p>• Active SA parameters<br>• Crypto keys & algorithms<br>• Operational state</p>
+                            <p class="note">Lookup: SPI + Dest IP</p>
+                        </div>
+
+                        <div class="database-card">
+                            <h3>PAD</h3>
+                            <p><strong>Peer Authorization Database</strong></p>
+                            <p>• Links IKE to SPD<br>• Authorized identities<br>• Access control</p>
+                            <p class="note">Prevents unauthorized SAs</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 14: IKE Phase 1 -->
+        <section class="slide" data-slide="14">
+            <div class="slide-content">
+                <h2>IKE Phase 1</h2>
+                <div class="content-block">
+                    <p class="protocol-number">ISAKMP Tunnel Establishment</p>
+
+                    <h3>Authentication Methods</h3>
+                    <div class="auth-methods">
+                        <div class="auth-method">
+                            <h4>PSK</h4>
+                            <p>Shared secret passphrase</p>
+                        </div>
+                        <div class="auth-method">
+                            <h4>Certificates</h4>
+                            <p>X.509 from trusted CA</p>
+                        </div>
+                        <div class="auth-method">
+                            <h4>Public Key</h4>
+                            <p>RSA signatures</p>
+                        </div>
+                    </div>
+
+                    <h3>IKEv1 Modes</h3>
+                    <div class="mode-comparison">
+                        <div class="mode-detail">
+                            <h4>Main Mode (6 msgs)</h4>
+                            <ol>
+                                <li>Negotiate parameters</li>
+                                <li>DH key exchange</li>
+                                <li>Authenticate peers</li>
+                            </ol>
+                            <p class="advantage">✓ Identity protected</p>
+                        </div>
+                        <div class="mode-detail">
+                            <h4>Aggressive (3 msgs)</h4>
+                            <ol>
+                                <li>Send all params + DH</li>
+                                <li>Accept + authenticate</li>
+                                <li>Confirm</li>
+                            </ol>
+                            <p class="warning">⚠️ Identity exposed</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 15: IKE Phase 2 -->
+        <section class="slide" data-slide="15">
+            <div class="slide-content">
+                <h2>IKE Phase 2</h2>
+                <div class="content-block">
+                    <p class="protocol-number">Quick Mode - IPsec SA Negotiation</p>
+
+                    <h3>Objectives</h3>
+                    <ol class="numbered-list">
+                        <li>Negotiate protocol (AH/ESP) & mode</li>
+                        <li>Select encryption & auth algorithms</li>
+                        <li>Derive session keys from Phase 1</li>
+                        <li>Establish SAs (min 2 for bidirectional)</li>
+                    </ol>
+
+                    <div class="highlight-box">
+                        <h4>Proxy IDs</h4>
+                        <p>• Traffic selectors<br>• Must match on both peers<br>• Defines protected traffic</p>
+                    </div>
+
+                    <div class="info-box">
+                        <h4>PFS (Perfect Forward Secrecy)</h4>
+                        <p>• Optional additional DH exchange<br>• Keys mathematically independent<br>• Compromise doesn't affect other sessions</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 16: IKEv1 vs IKEv2 -->
+        <section class="slide" data-slide="16">
+            <div class="slide-content">
+                <h2>IKEv1 vs IKEv2</h2>
+                <div class="content-block">
+                    <div class="version-comparison">
+                        <div class="version-card">
+                            <h3>IKEv1 (RFC 2409)</h3>
+                            <ul class="feature-list">
+                                <li>Main Mode / Aggressive Mode</li>
+                                <li>Quick Mode (Phase 2)</li>
+                                <li>Complex exchanges</li>
+                                <li>Legacy, widely deployed</li>
+                            </ul>
+                        </div>
+
+                        <div class="version-card highlight">
+                            <h3>IKEv2 (RFC 4306)</h3>
+                            <ul class="feature-list">
+                                <li>Simplified design</li>
+                                <li>Fewer messages</li>
+                                <li>Built-in NAT-T</li>
+                                <li>Explicit ACKs</li>
+                                <li>Better remote access VPN</li>
+                                <li>DoS resistant</li>
+                                <li>Single exchange type</li>
+                            </ul>
+                            <p class="recommendation">✓ Recommended for new deployments</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 17: Cryptographic Algorithms -->
+        <section class="slide" data-slide="17">
+            <div class="slide-content">
+                <h2>Cryptographic Algorithms</h2>
+                <div class="content-block">
+                    <h3>Encryption</h3>
+                    <div class="algorithm-grid">
+                        <div class="algo-card recommended">
+                            <h4>AES</h4>
+                            <p>Block cipher: 128/192/256-bit</p>
+                            <p class="strength">✓ Hardware acceleration (AES-NI)<br>✓ Proven security</p>
+                            <p class="use-case">Best: High throughput, AES-NI CPUs</p>
+                        </div>
+
+                        <div class="algo-card recommended">
+                            <h4>ChaCha20</h4>
+                            <p>Stream cipher: 256-bit</p>
+                            <p class="strength">✓ Fast in software<br>✓ Timing attack resistant</p>
+                            <p class="use-case">Best: Mobile, embedded, no AES-NI</p>
+                        </div>
+
+                        <div class="algo-card deprecated">
+                            <h4>Legacy</h4>
+                            <p>3DES: Weak<br>DES: Broken</p>
+                            <p class="warning-text">❌ Avoid</p>
+                        </div>
+                    </div>
+
+                    <h3>Authentication & Integrity</h3>
+                    <div class="hash-list">
+                        <div class="hash-item recommended">SHA-256/384/512</div>
+                        <div class="hash-item recommended">BLAKE2</div>
+                        <div class="hash-item recommended">Poly1305</div>
+                        <div class="hash-item deprecated">SHA-1 ❌</div>
+                        <div class="hash-item deprecated">MD5 ❌</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 18: Diffie-Hellman Groups -->
+        <section class="slide" data-slide="18">
+            <div class="slide-content">
+                <h2>Diffie-Hellman Key Exchange</h2>
+                <div class="content-block">
+                    <p class="protocol-number">Shared Secret Over Insecure Channel</p>
+
+                    <h3>DH Groups</h3>
+                    <table class="dh-table">
+                        <thead>
+                            <tr>
+                                <th>Group</th>
+                                <th>Size</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="deprecated-row">
+                                <td>1</td>
+                                <td>768-bit</td>
+                                <td>❌ Obsolete</td>
+                            </tr>
+                            <tr class="deprecated-row">
+                                <td>2</td>
+                                <td>1024-bit</td>
+                                <td>❌ Legacy</td>
+                            </tr>
+                            <tr class="acceptable-row">
+                                <td>5</td>
+                                <td>1536-bit</td>
+                                <td>⚠️ Minimum</td>
+                            </tr>
+                            <tr class="recommended-row">
+                                <td>14</td>
+                                <td>2048-bit</td>
+                                <td>✓ Standard</td>
+                            </tr>
+                            <tr class="recommended-row">
+                                <td>15-18</td>
+                                <td>3072-8192-bit</td>
+                                <td>✓ High security</td>
+                            </tr>
+                            <tr class="recommended-row">
+                                <td>EC</td>
+                                <td>Elliptic Curve</td>
+                                <td>✓ Efficient</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 19: Packet Processing - Outbound -->
+        <section class="slide" data-slide="19">
+            <div class="slide-content">
+                <h2>Outbound Processing</h2>
+                <div class="content-block">
+                    <div class="process-flow">
+                        <div class="process-step">
+                            <div class="step-number">1</div>
+                            <div class="step-content">
+                                <h4>SPD Lookup</h4>
+                                <p>Match selectors → policy</p>
+                            </div>
+                        </div>
+
+                        <div class="process-step">
+                            <div class="step-number">2</div>
+                            <div class="step-content">
+                                <h4>Action</h4>
+                                <p>BYPASS / DISCARD / PROTECT</p>
+                            </div>
+                        </div>
+
+                        <div class="process-step">
+                            <div class="step-number">3</div>
+                            <div class="step-content">
+                                <h4>SAD Lookup</h4>
+                                <p>Find matching SA</p>
+                            </div>
+                        </div>
+
+                        <div class="process-step">
+                            <div class="step-number">4</div>
+                            <div class="step-content">
+                                <h4>IKE (if needed)</h4>
+                                <p>Negotiate new SA</p>
+                            </div>
+                        </div>
+
+                        <div class="process-step">
+                            <div class="step-number">5</div>
+                            <div class="step-content">
+                                <h4>Encrypt & Auth</h4>
+                                <p>Add IPsec headers</p>
+                            </div>
+                        </div>
+
+                        <div class="process-step">
+                            <div class="step-number">6</div>
+                            <div class="step-content">
+                                <h4>Send</h4>
+                                <p>Transmit protected packet</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 20: Packet Processing - Inbound -->
+        <section class="slide" data-slide="20">
+            <div class="slide-content">
+                <h2>Inbound Processing</h2>
+                <div class="content-block">
+                    <div class="process-flow">
+                        <div class="process-step">
+                            <div class="step-number">1</div>
+                            <div class="step-content">
+                                <h4>ID Protocol</h4>
+                                <p>ESP (50) or AH (51)</p>
+                            </div>
+                        </div>
+
+                        <div class="process-step">
+                            <div class="step-number">2</div>
+                            <div class="step-content">
+                                <h4>SAD Lookup</h4>
+                                <p>SPI + Dest IP → SA</p>
+                            </div>
+                        </div>
+
+                        <div class="process-step">
+                            <div class="step-number">3</div>
+                            <div class="step-content">
+                                <h4>Anti-replay</h4>
+                                <p>Check sequence number</p>
+                            </div>
+                        </div>
+
+                        <div class="process-step">
+                            <div class="step-number">4</div>
+                            <div class="step-content">
+                                <h4>Verify Auth</h4>
+                                <p>Compare ICV/MAC</p>
+                            </div>
+                        </div>
+
+                        <div class="process-step">
+                            <div class="step-number">5</div>
+                            <div class="step-content">
+                                <h4>Decrypt</h4>
+                                <p>Using SA algorithm & key</p>
+                            </div>
+                        </div>
+
+                        <div class="process-step">
+                            <div class="step-number">6</div>
+                            <div class="step-content">
+                                <h4>Strip Headers</h4>
+                                <p>Remove IPsec headers</p>
+                            </div>
+                        </div>
+
+                        <div class="process-step">
+                            <div class="step-number">7</div>
+                            <div class="step-content">
+                                <h4>SPD Verify</h4>
+                                <p>Match policy</p>
+                            </div>
+                        </div>
+
+                        <div class="process-step">
+                            <div class="step-number">8</div>
+                            <div class="step-content">
+                                <h4>Deliver</h4>
+                                <p>Forward to upper layer</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 21: NAT Traversal -->
+        <section class="slide" data-slide="21">
+            <div class="slide-content">
+                <h2>NAT Traversal (NAT-T)</h2>
+                <div class="content-block">
+                    <h3>⚠️ NAT Problems</h3>
+                    <div class="problem-list">
+                        <div class="problem-item">
+                            <h4>Header Modification</h4>
+                            <p>IP addresses & ports changed</p>
+                        </div>
+                        <div class="problem-item">
+                            <h4>AH Breaks</h4>
+                            <p>Authenticates IP header</p>
+                        </div>
+                        <div class="problem-item">
+                            <h4>Embedded IPs</h4>
+                            <p>Payload address issues</p>
+                        </div>
+                        <div class="problem-item">
+                            <h4>IKE Port 500</h4>
+                            <p>NAT device compatibility</p>
+                        </div>
+                    </div>
+
+                    <h3>✓ NAT-T Solution</h3>
+                    <div class="solution-box">
+                        <ul class="feature-list">
+                            <li>Auto-detect NAT during IKE</li>
+                            <li>Encapsulate ESP in UDP:4500</li>
+                            <li>Keep-alive packets</li>
+                            <li>Handle IP address changes</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 22: Implementation Considerations -->
+        <section class="slide" data-slide="22">
+            <div class="slide-content">
+                <h2>Performance Factors</h2>
+                <div class="content-block">
+                    <div class="factor-grid">
+                        <div class="factor-item">
+                            <h4>Crypto Overhead</h4>
+                            <p>• Hardware accel (AES-NI) → better AES<br>• No HW accel → ChaCha20 faster<br>• Use crypto coprocessors</p>
+                        </div>
+
+                        <div class="factor-item">
+                            <h4>MTU & Fragmentation</h4>
+                            <p>• IPsec adds overhead<br>• Reduces effective MTU<br>• Use Path MTU Discovery<br>• Configure properly</p>
+                        </div>
+
+                        <div class="factor-item">
+                            <h4>Mode Selection</h4>
+                            <p>• Transport: Lower overhead<br>• Tunnel: Higher overhead<br>• Choose based on needs</p>
+                        </div>
+
+                        <div class="factor-item">
+                            <h4>SA Establishment</h4>
+                            <p>• Phase 1 DH expensive<br>• Long-lived SAs better<br>• Amortize cost over time</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 23: Security Best Practices -->
+        <section class="slide" data-slide="23">
+            <div class="slide-content">
+                <h2>Security Best Practices</h2>
+                <div class="content-block">
+                    <div class="best-practices-grid">
+                        <div class="practice-category">
+                            <h3>Algorithms</h3>
+                            <ul class="check-list">
+                                <li>AES-256 or ChaCha20</li>
+                                <li>SHA-256 or stronger</li>
+                                <li>DH Group 14+ (2048-bit)</li>
+                                <li>Enable PFS</li>
+                                <li>Avoid 3DES, DES, SHA-1, MD5</li>
+                            </ul>
+                        </div>
+
+                        <div class="practice-category">
+                            <h3>Key Management</h3>
+                            <ul class="check-list">
+                                <li>Use IKE (dynamic)</li>
+                                <li>Regular key refresh</li>
+                                <li>Certificates > PSK</li>
+                                <li>Strong passphrases</li>
+                            </ul>
+                        </div>
+
+                        <div class="practice-category">
+                            <h3>Policy Config</h3>
+                            <ul class="check-list">
+                                <li>Restrictive SPD (least-privilege)</li>
+                                <li>Audit regularly</li>
+                                <li>ESP encrypt + auth</li>
+                                <li>Anti-replay ON</li>
+                            </ul>
+                        </div>
+
+                        <div class="practice-category">
+                            <h3>Operations</h3>
+                            <ul class="check-list">
+                                <li>Monitor logs</li>
+                                <li>Apply security patches</li>
+                                <li>Test failover</li>
+                                <li>Document configs</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 24: Deployment Scenarios -->
+        <section class="slide" data-slide="24">
+            <div class="slide-content">
+                <h2>Deployment Scenarios</h2>
+                <div class="content-block">
+                    <div class="deployment-grid">
+                        <div class="deployment-card">
+                            <h3>Site-to-Site VPN</h3>
+                            <div class="deployment-icon">🏢 ↔️ 🏢</div>
+                            <p>• Security gateways<br>• Tunnel mode<br>• Transparent encryption<br>• Network-to-network</p>
+                            <p class="note">Hosts don't need IPsec</p>
+                        </div>
+
+                        <div class="deployment-card">
+                            <h3>Remote Access VPN</h3>
+                            <div class="deployment-icon">💻 → 🏢</div>
+                            <p>• User → VPN gateway<br>• Tunnel to corp network<br>• Mobile workforce<br>• Internal resource access</p>
+                            <p class="note">Client software required</p>
+                        </div>
+
+                        <div class="deployment-card">
+                            <h3>Host-to-Host</h3>
+                            <div class="deployment-icon">💻 ↔️ 💻</div>
+                            <p>• Direct communication<br>• Transport mode<br>• End-to-end security<br>• No gateways</p>
+                            <p class="note">Both hosts support IPsec</p>
+                        </div>
+
+                        <div class="deployment-card">
+                            <h3>Hybrid Cloud</h3>
+                            <div class="deployment-icon">🏢 ↔️ ☁️</div>
+                            <p>• On-premises ↔ Cloud<br>• Virtual networks<br>• Provider VPN service<br>• Hybrid architecture</p>
+                            <p class="note">Secure cloud connectivity</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 25: Conclusion -->
+        <section class="slide" data-slide="25">
+            <div class="slide-content">
+                <h2>Conclusion</h2>
+                <div class="content-block">
+                    <p class="conclusion-text"><strong>IPsec:</strong> Mature, standardized network-layer security framework</p>
+
+                    <div class="key-strengths">
+                        <h3>Key Strengths</h3>
+                        <div class="strength-grid">
+                            <div class="strength-item">
+                                <h4>🏗️ Layered</h4>
+                                <p>SPD → SA → IKE<br>Policy to automation</p>
+                            </div>
+                            <div class="strength-item">
+                                <h4>🔒 Comprehensive</h4>
+                                <p>Confidentiality<br>Integrity<br>Authentication<br>Anti-replay</p>
+                            </div>
+                            <div class="strength-item">
+                                <h4>⚡ Performance</h4>
+                                <p>Hardware acceleration<br>High throughput<br>Efficient crypto</p>
+                            </div>
+                            <div class="strength-item">
+                                <h4>🔧 Flexible</h4>
+                                <p>Host-to-host<br>Site-to-site VPN<br>Remote access<br>Cloud hybrid</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <p class="final-statement">IPsec remains foundational for secure communications infrastructure.<br>Essential knowledge for network security professionals.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 26: References -->
+        <section class="slide" data-slide="26">
+            <div class="slide-content">
+                <h2>Key References</h2>
+                <div class="content-block references-list">
+                    <div class="ref-item">[1] IPsec - Wikipedia</div>
+                    <div class="ref-item">[2] IPSEC Authentication Header - Reddit Networking</div>
+                    <div class="ref-item">[3] IPsec Tunnel and Transport Modes - GeeksforGeeks</div>
+                    <div class="ref-item">[4] IPSec Protocol Technology - Oreate AI</div>
+                    <div class="ref-item">[5] IPSec AH and ESP - Florida State University</div>
+                    <div class="ref-item">[6] IPsec Mode Setup - Twingate</div>
+                    <div class="ref-item">[7] IPsec Components - SSL2Buy</div>
+                    <div class="ref-item">[8] IP Security Introduction - Cisco</div>
+                    <div class="ref-item">[16] IKE in Network Security - GeeksforGeeks</div>
+                    <div class="ref-item">[17] RFC 4301 - Security Architecture for IP - IETF</div>
+                    <div class="ref-item">[19] Internet Key Exchange - TechTarget</div>
+                    <div class="ref-item">[20] Security Association Overview - ScienceDirect</div>
+                    <div class="ref-item-note">Full reference list available in ipsec-architecture-report.md</div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
