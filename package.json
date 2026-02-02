@@ -1,0 +1,22 @@
+{
+  "name": "ipsec-architecture-presentation",
+  "version": "1.0.0",
+  "description": "Interactive IPsec Architecture Presentation with horizontal scrolling and presentation notes",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve -s . -l 3000",
+    "dev": "npx serve -s . -l 3000"
+  },
+  "keywords": [
+    "ipsec",
+    "security",
+    "presentation",
+    "architecture",
+    "networking"
+  ],
+  "author": "Technical Documentation Team",
+  "license": "MIT",
+  "dependencies": {
+    "serve": "^14.2.1"
+  }
+}
